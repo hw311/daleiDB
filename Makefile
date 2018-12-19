@@ -1,4 +1,4 @@
-.PHONY : clean all tests debug doc
+.PHONY : clean all tests run_tests debug doc
 
 BINDIR   := bin
 BUILDDIR := build
@@ -23,10 +23,22 @@ DOCCONFIG ?= .doxyconfig
 
 CPPFLAGS := -std=c++17 -Wall
 
+export MKDIR
+export RM
+export CC
+export CXX
+export CPPFLAGS
+
 all : $(OBJECTS)
 
 debug : CPPFLAGS += -O0 -D DEBUG -g3
 debug : $(OBJECTS)
+
+tests : $(OBJECTS)
+	$(MAKE) -C $(TESTDIR)
+
+run_tests : tests
+	$(MAKE) -C $(TESTDIR) run
 
 doc :
 	$(DOC) $(DOCCONFIG)
@@ -44,3 +56,4 @@ $(BUILDDIR)/paged_file_manager.o :
 
 clean :
 	$(RM) $(AUXDIR)
+	$(MAKE) -C $(TESTDIR) clean
