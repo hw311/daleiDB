@@ -12,7 +12,11 @@ install:
   - sudo apt-get install -qq g++-7
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
-script: sudo make run_tests
+script:
+  - g++ --version
+  - echo "gg" > gg
+  - cat gg
+  - make run_tests
 
 notifications:
   email:
