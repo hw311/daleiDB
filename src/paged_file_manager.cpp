@@ -31,7 +31,7 @@ void FileHandle::OpenFile(const std::string& file_name) {
   try {
     file_.open(file_name,
                std::fstream::in | std::fstream::out | std::fstream::binary);
-    file_.seekg(file_.end);
+    file_.seekg(0, file_.end);
 
     if (file_.tellg() != 0) {  // Previous file
       file_.seekg(0, file_.beg);
@@ -55,7 +55,7 @@ void FileHandle::CloseFile() {
   file_.clear();
 
   try {
-    file_.seekp(file_.beg);
+    file_.seekp(0, file_.beg);
     file_.write(reinterpret_cast<const char*>(&num_pages_), sizeof(num_pages_));
     file_.write(reinterpret_cast<const char*>(&read_counter_),
                 sizeof(read_counter_));
@@ -111,7 +111,7 @@ void FileHandle::AppendPage(const Byte* buffer) {
   file_.clear();
 
   try {
-    file_.seekp(file_.end);
+    file_.seekp(0, file_.end);
     file_.write(reinterpret_cast<const char*>(buffer), kPageSize);
     file_.flush();
   } catch (const std::fstream::failure& fstream_fail) {
