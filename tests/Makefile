@@ -17,6 +17,7 @@ $(PROJ_SOURCES:$(PROJECT_ROOT)/$(SRCDIR)/%.cpp=$(PROJECT_ROOT)/$(BUILDDIR)/%.o)
 TARGET := $(BINDIR)/run_unit_tests
 
 CPPFLAGS += -I../utils -I../src
+LDFLAGS  ?= -pthread --coverage
 
 all : $(TARGET) $(OBJECTS)
 
@@ -30,7 +31,7 @@ $(OBJECTS) : $(BUILDDIR)/%.o : $(SRCDIR)/%.cpp | $(BUILDDIR)
 	$(CXX) -c -o $@ $< $(CPPFLAGS)
 
 $(TARGET) : $(OBJECTS) $(PROJ_OBJECTS) | $(BINDIR)
-	$(CXX) -o $@ $^ $(CPPFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 clean :
 	$(RM) $(AUXDIR)
