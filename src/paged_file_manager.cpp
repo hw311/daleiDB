@@ -33,7 +33,10 @@ void FileHandle::OpenFile(const std::string& file_name) {
                std::fstream::in | std::fstream::out | std::fstream::binary);
     file_.seekg(0, file_.end);
 
-    if (file_.tellg() != 0) {  // Previous file
+    std::streamoff file_begin = 0;
+    std::streamoff end_pos = file_.tellg();
+
+    if (end_pos != file_begin) {  // Previous file
       file_.seekg(0, file_.beg);
       file_.read(reinterpret_cast<char*>(&num_pages_), sizeof(num_pages_));
       file_.read(reinterpret_cast<char*>(&read_counter_),

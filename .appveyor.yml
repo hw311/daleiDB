@@ -4,6 +4,10 @@ os:
   - Visual Studio 2017
   - Visual Studio 2015
 
+branches:
+  except:
+    - /.*_(doc|dev)$/
+
 init:
   - git config --global core.autocrlf input
   - ps: Update-AppveyorBuild -Version "$($env:APPVEYOR_REPO_BRANCH) - $($env:APPVEYOR_REPO_COMMIT)"
