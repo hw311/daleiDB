@@ -36,11 +36,3 @@
 
 # Build directory
 build
-
-# Binary directory
-bin
-
-# Gcov files
-*.gcov
-*.gcda
-*.gcno

@@ -1,5 +1,4 @@
 language: cpp
-dist: trusty
 
 branches:
   except:
@@ -16,6 +15,7 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - AFTER_SUCCESS="cd ${TRAVIS_BUILD_DIR}/build && make collect_coverage && bash <(curl -s https://codecov.io/bash)"
 
     - os: linux
       addons:
@@ -29,13 +29,25 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
+    - os: osx
+
 before_install:
   - eval "${MATRIX_EVAL}"
 
-script: make run_tests
+before_script:
+  - cmake --version
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cd ${TRAVIS_BUILD_DIR}
+
+script:
+  - cd build
+  - make && make test
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  - eval "${AFTER_SUCCESS}"
 
 notifications:
   email:

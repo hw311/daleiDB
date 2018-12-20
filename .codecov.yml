@@ -4,17 +4,13 @@ codecov:
 
 coverage:
   precision: 2
-  round: down
-  range: "70...100"
+  round: nearest
+  range: "60...90"
 
   status:
     project: yes
     patch: yes
     changes: no
-
-  ignore:
-    - "utils"
-    - "tests"
 
 parsers:
   gcov:
