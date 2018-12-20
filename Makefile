@@ -21,7 +21,7 @@ DOC ?= doxygen
 
 DOCCONFIG ?= .doxyconfig
 
-CPPFLAGS ?= -std=c++17 -Wall -pthread
+CPPFLAGS ?= -std=c++17 -Wall
 
 export MKDIR
 export RM
@@ -34,6 +34,7 @@ all : $(OBJECTS)
 debug : CPPFLAGS += -O0 -D DEBUG -g3
 debug : $(OBJECTS)
 
+tests : CPPFLAGS += -fprofile-arcs -ftest-coverage
 tests : $(OBJECTS)
 	$(MAKE) -C $(TESTDIR)
 
