@@ -161,11 +161,9 @@ void PagedFileManager::CreateFile(const std::string& file_name) {
 }
 
 void PagedFileManager::DestroyFile(const std::string& file_name) {
-  std::ifstream file(file_name);
-  if (!file.good())
+  if (!std::ifstream(file_name))
     throw exception::FileNotFound("File " + file_name + " not found");
 
-  file.close();
   if (remove(file_name.c_str()) != 0)
     throw exception::IOFailure("Deletion failure");
 }
