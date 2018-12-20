@@ -50,6 +50,9 @@ TEST_CASE("Files can be created and destroyed properly",
     remove(file_name.c_str());
     std::fstream file(file_name, std::fstream::out);
     CHECK(file.good());
+    
+    // Close file before destroy, required by Windows
+    CHECK_NOTHROW(file.close());
 
     REQUIRE_NOTHROW(paged_file_manager.DestroyFile(file_name));
     REQUIRE_FALSE(std::ifstream(file_name));
