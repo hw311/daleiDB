@@ -14,8 +14,7 @@ matrix:
           packages:
             - g++-7
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - AFTER_SUCCESS="cd ${TRAVIS_BUILD_DIR}/build && make collect_coverage && bash <(curl -s https://codecov.io/bash)"
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && GCOV=gcov-7"
 
     - os: linux
       addons:
@@ -47,7 +46,9 @@ script:
   - make && make test
 
 after_success:
-  - eval "${AFTER_SUCCESS}"
+  - cd ${TRAVIS_BUILD_DIR}/build
+  - make collect_coverage
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email:
