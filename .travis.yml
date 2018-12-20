@@ -1,6 +1,10 @@
 language: cpp
 dist: trusty
 
+branches:
+  except:
+    - /.*_(doc|dev)$/
+
 matrix:
   include:
     - os: linux
