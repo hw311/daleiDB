@@ -21,7 +21,7 @@ DOC ?= doxygen
 
 DOCCONFIG ?= .doxyconfig
 
-CPPFLAGS := -std=c++17 -Wall
+CPPFLAGS ?= -std=c++17 -Wall -pthread
 
 export MKDIR
 export RM
