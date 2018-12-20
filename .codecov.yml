@@ -12,6 +12,10 @@ coverage:
     patch: yes
     changes: no
 
+ignore:
+  - tests
+  - utils
+
 comment:
   layout: "header, diff"
   behavior: default
