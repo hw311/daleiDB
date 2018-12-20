@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Temporary files
+*.tmp
+
+# Build directory
+build
+
+# Binary directory
+bin
