@@ -33,7 +33,10 @@ void FileHandle::OpenFile(const std::string& file_name) {
                std::fstream::in | std::fstream::out | std::fstream::binary);
     file_.seekg(0, file_.end);
 
-    if (file_.tellg() != 0) {  // Previous file
+    std::streamoff file_begin = 0;
+    std::streamoff end_pos = file_.tellg();
+
+    if (end_pos != file_begin) {  // Previous file
       file_.seekg(0, file_.beg);
       file_.read(reinterpret_cast<char*>(&num_pages_), sizeof(num_pages_));
       file_.read(reinterpret_cast<char*>(&read_counter_),
@@ -158,9 +161,11 @@ void PagedFileManager::CreateFile(const std::string& file_name) {
 }
 
 void PagedFileManager::DestroyFile(const std::string& file_name) {
-  if (!std::ifstream(file_name))
+  std::ifstream file(file_name);
+  if (!file.good())
     throw exception::FileNotFound("File " + file_name + " not found");
 
+  file.close();
   if (remove(file_name.c_str()) != 0)
     throw exception::IOFailure("Deletion failure");
 }
