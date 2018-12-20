@@ -16,7 +16,7 @@ $(PROJ_SOURCES:$(PROJECT_ROOT)/$(SRCDIR)/%.cpp=$(PROJECT_ROOT)/$(BUILDDIR)/%.o)
 
 TARGET := $(BINDIR)/run_unit_tests
 
-CPPFLAGS += -I../utils -I ../src
+CPPFLAGS += -I../utils -I../src
 
 all : $(TARGET) $(OBJECTS)
 
