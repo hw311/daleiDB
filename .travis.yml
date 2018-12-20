@@ -12,7 +12,7 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        - CPPFLAGS="-std=c++17 -Wall -v"
+        - CPPFLAGS="-std=c++17 -Wall -pthread"
 
     - os: linux
       addons:
@@ -25,7 +25,7 @@ matrix:
             - clang-5.0
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-        - CPPFLAGS="-std=c++17 -Wall -v"
+        - CPPFLAGS="-std=c++17 -Wall -pthread"
 
 before_install:
   - eval "${MATRIX_EVAL}"
